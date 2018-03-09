@@ -20,6 +20,27 @@ class App extends Component {
         })
     }
 
+    sortTodo(){
+        const todoList = this.state.todoList;
+        todoList.sort();
+
+        this.setState({
+            todoList,
+            todoInput: ''
+        })
+    }
+
+    deleteItem(el){
+        let todoList = this.state.todoList;
+        const ind = todoList.indexOf(el);
+        todoList.splice(ind, 1);
+
+        this.setState({
+            todoList,
+            todoInput: ''
+        })
+    }
+
     render() {
         return (
             <div className="App">
@@ -29,10 +50,11 @@ class App extends Component {
                        onChange={(e) => this.setState({ todoInput: e.target.value })}
                 />
                 <button onClick={() => this.addTodo()}>Add</button>
-
+                <button onClick={() => this.sortTodo()}>Sort</button>
                 <ul>
                     {
-                        this.state.todoList.map(el => <li key={el}>{el}</li>)
+                        this.state.todoList.map(el => <li key={el}>{el}
+                        <button onClick={()=>this.deleteItem(el)}>Delete</button></li>)
                     }
                 </ul>
 
