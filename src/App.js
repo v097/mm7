@@ -6,7 +6,8 @@ class App extends Component {
 
         this.state = {
             todoList: [],
-            todoInput: []
+            todoInput: '',
+            keyInput: ''
         };
     }
 
@@ -18,21 +19,22 @@ class App extends Component {
 
     addTodo() {
         const todoList = this.state.todoList;
-        todoList.push(this.state.todoInput);
+        let el = [this.state.todoInput, this.state.keyInput]
+        todoList.push(el);
 
         this.setState({
             todoList,
-            todoInput: ''
+            todoInput: []
         })
     }
 
     sortTodo(){
-        const todoList = this.state.todoList;
+        let todoList = this.state.todoList;
         todoList.sort();
-
+        console.log(todoList);
         this.setState({
             todoList,
-            todoInput: ''
+            todoInput: []
         })
     }
 
@@ -43,7 +45,7 @@ class App extends Component {
 
         this.setState({
             todoList,
-            todoInput: ''
+            todoInput: []
         })
     }
 
@@ -53,13 +55,13 @@ class App extends Component {
 
                 <input type="text"
                        value={this.state.todoInput}
-                       onChange={(e) => this.setState({ todoInput: e.target.value })}
+                       onChange={(e) => this.setState({ todoInput: e.target.value, keyInput: this.uuidv4() })}
                 />
                 <button onClick={() => this.addTodo()}>Add</button>
                 <button onClick={() => this.sortTodo()}>Sort</button>
                 <ul>
                     {
-                        this.state.todoList.map(el => <li key={el}>{el}
+                        this.state.todoList.map(el => <li key={el[1]}>{el[0]}
                         <button onClick={()=>this.deleteItem(el)}>Delete</button></li>)
                     }
                 </ul>
