@@ -60,6 +60,13 @@ class App extends Component {
         })
     }
 
+    handleKeyPress(e){
+        if (e.key === 'Enter') {
+            console.log('do validate');
+            this.addTodo()
+        }
+    }
+
     render() {
         return (
             <div className="App">
@@ -67,6 +74,7 @@ class App extends Component {
                     <input className="form-control" type="text"
                        value={this.state.todoInput}
                         onChange={(e) => this.inputChange(e.target.value)}
+                           onKeyPress={(e) => this.handleKeyPress(e) }
                     />
                     <div className="input-group-append">
                         <button className="btn btn-outline-secondary btn-sm" disabled={!this.state.todoInputValid} onClick={() => this.addTodo()}>Add</button>
