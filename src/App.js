@@ -61,8 +61,7 @@ class App extends Component {
     }
 
     handleKeyPress(e){
-        if (e.key === 'Enter') {
-            console.log('do validate');
+        if (e.key === 'Enter' && this.state.todoInputValid) {
             this.addTodo()
         }
     }
