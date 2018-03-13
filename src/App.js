@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -19,12 +21,22 @@ class App extends Component {
 
     addTodo() {
         const todoList = this.state.todoList;
-        let el = [this.state.todoInput, this.state.keyInput]
+        let el = [this.state.todoInput.trim(), this.uuidv4()]
         todoList.push(el);
 
         this.setState({
             todoList,
-            todoInput: []
+            todoInput: [],
+            todoInputValid: false,
+        })
+    }
+
+    inputChange(v) {
+        let todoInputValid = v.replace(/ /g,'').length >= 3 ;
+
+        this.setState({
+            todoInput: v,
+            todoInputValid
         })
     }
 
@@ -52,17 +64,23 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-
-                <input type="text"
+                <div className="input-group">
+                    <input className="form-control" type="text"
                        value={this.state.todoInput}
-                       onChange={(e) => this.setState({ todoInput: e.target.value, keyInput: this.uuidv4() })}
-                />
-                <button onClick={() => this.addTodo()}>Add</button>
-                <button onClick={() => this.sortTodo()}>Sort</button>
-                <ul>
+                        onChange={(e) => this.inputChange(e.target.value)}
+                    />
+                    <div className="input-group-append">
+                        <button className="btn btn-outline-secondary btn-sm" disabled={!this.state.todoInputValid} onClick={() => this.addTodo()}>Add</button>
+                        <button className="btn btn-success btn-sm" onClick={() => this.sortTodo()}>Sort</button>
+                    </div>
+                </div>
+
+                    <ul>
                     {
-                        this.state.todoList.map(el => <li key={el[1]}>{el[0]}
-                        <button onClick={()=>this.deleteItem(el)}>Delete</button></li>)
+                        this.state.todoList.map(el =>
+                            <li key={el[1]}>{el[0]}
+                                <button className="btn btn-danger btn-sm" onClick={()=>this.deleteItem(el)}>Delete</button>
+                            </li>)
                     }
                 </ul>
 
