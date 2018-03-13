@@ -69,6 +69,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <div className="container">
                 <div className="input-group">
                     <input className="form-control" type="text"
                        value={this.state.todoInput}
@@ -76,20 +77,23 @@ class App extends Component {
                            onKeyPress={(e) => this.handleKeyPress(e) }
                     />
                     <div className="input-group-append">
-                        <button className="btn btn-outline-secondary btn-sm" disabled={!this.state.todoInputValid} onClick={() => this.addTodo()}>Add</button>
-                        <button className="btn btn-success btn-sm" onClick={() => this.sortTodo()}>Sort</button>
+                        <button className="btn btn-outline-secondary btn-sm"
+                                disabled={!this.state.todoInputValid}
+                                onClick={() => this.addTodo()}>Add</button>
+                        <button className="btn btn-success btn-sm"
+                                onClick={() => this.sortTodo()}>Sort</button>
                     </div>
                 </div>
-
-                <ul>
-                    {
-                        this.state.todoList.map(el =>
-                            <li key={el[1]}>{el[0]}
-                                <button className="btn btn-danger btn-sm" onClick={()=>this.deleteItem(el)}>Delete</button>
-                            </li>)
-                    }
-                </ul>
-
+                    <ul>
+                        {
+                            this.state.todoList.map(el =>
+                                <li key={el[1]}>{el[0]}
+                                    <button className="btn btn-danger btn-sm"
+                                            onClick={()=>this.deleteItem(el)}>Delete</button>
+                                </li>)
+                        }
+                    </ul>
+                </div>
             </div>
         );
     }
