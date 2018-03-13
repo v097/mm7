@@ -26,7 +26,7 @@ class App extends Component {
 
         this.setState({
             todoList,
-            todoInput: [],
+            todoInput: '',
             todoInputValid: false,
         })
     }
@@ -46,7 +46,7 @@ class App extends Component {
         console.log(todoList);
         this.setState({
             todoList,
-            todoInput: []
+
         })
     }
 
@@ -56,8 +56,7 @@ class App extends Component {
         todoList.splice(ind, 1);
 
         this.setState({
-            todoList,
-            todoInput: []
+            todoList
         })
     }
 
@@ -75,7 +74,7 @@ class App extends Component {
                     </div>
                 </div>
 
-                    <ul>
+                <ul>
                     {
                         this.state.todoList.map(el =>
                             <li key={el[1]}>{el[0]}
