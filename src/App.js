@@ -21,7 +21,8 @@ class App extends Component {
 
     addTodo() {
         const todoList = this.state.todoList;
-        let el = [this.state.todoInput.trim(), this.uuidv4()]
+        //let el = [this.state.todoInput.trim(), this.uuidv4()]
+        let el = {value: this.state.todoInput.trim(), key: this.uuidv4()}
         todoList.push(el);
 
         this.setState({
@@ -42,11 +43,10 @@ class App extends Component {
 
     sortTodo(){
         let todoList = this.state.todoList;
-        todoList.sort();
+        todoList.sort((a,b) => a.value > b.value ? 1 : -1);
         console.log(todoList);
         this.setState({
             todoList,
-
         })
     }
 
@@ -62,7 +62,7 @@ class App extends Component {
 
     handleKeyPress(e){
         if (e.key === 'Enter' && this.state.todoInputValid) {
-            this.addTodo()
+            this.addTodo();
         }
     }
 
@@ -87,7 +87,7 @@ class App extends Component {
                     <ul>
                         {
                             this.state.todoList.map(el =>
-                                <li key={el[1]}>{el[0]}
+                                <li key={el.key}>{el.value}
                                     <button className="btn btn-danger btn-sm"
                                             onClick={()=>this.deleteItem(el)}>Delete</button>
                                 </li>)
